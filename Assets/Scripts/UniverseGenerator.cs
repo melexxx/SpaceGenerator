@@ -8,8 +8,12 @@ public class UniverseGenerator : MonoBehaviour
 	private GameObject _universeObj;
 	private Transform _parent;
 
+	//public int FlatResolution = 2048;
+	public int FlatResolution = 1024;
+
 	public Camera CameraObj;
 	public Shader BaseShader;
+	public Shader CubemapShader;
 
 	public GameObject Quad;
 	public GameObject WrapSphere;
@@ -47,6 +51,29 @@ public class UniverseGenerator : MonoBehaviour
 		{
 			Scatter(sg);
 		}
+
+		Flatten();
+	}
+
+	public void Flatten()
+	{
+		var renText = new RenderTexture(FlatResolution, FlatResolution, 24);
+		renText.wrapMode = TextureWrapMode.Repeat;
+		renText.antiAliasing = 2;
+		renText.anisoLevel = 9;
+		renText.filterMode = FilterMode.Trilinear;
+		renText.generateMips = false;
+		renText.isCubemap = true;
+
+		var bgMat = new Material(CubemapShader);
+		bgMat.SetTexture("_Tex", renText);
+		Destroy(_parent.gameObject);
+
+		RenderSettings.skybox = bgMat;
+
+		CameraObj.RenderToCubemap(renText, 63);
+
+		CameraObj.clearFlags = CameraClearFlags.Skybox;
 	}
 
 	private void Scatter(ScatterParams settings)
