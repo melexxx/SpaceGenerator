@@ -159,6 +159,7 @@ GameObject:
   - 124: {fileID: 264934643}
   - 81: {fileID: 264934642}
   - 114: {fileID: 264934647}
+  - 114: {fileID: 264934648}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -212,11 +213,11 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -245,15 +246,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnSpeed: 45
---- !u!1 &1725524341
+--- !u!114 &264934648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 264934641}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweakMode: 1
+  screenBlendMode: 1
+  hdr: 1
+  sepBlurSpread: 7.78
+  quality: 1
+  bloomIntensity: 2
+  bloomThreshold: 0.26
+  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
+  bloomBlurIterations: 4
+  hollywoodFlareBlurIterations: 2
+  flareRotation: 0
+  lensflareMode: 1
+  hollyStretchWidth: 2.5
+  lensflareIntensity: 0
+  lensflareThreshold: 0.3
+  lensFlareSaturation: 0.75
+  flareColorA: {r: 0.4, g: 0.4, b: 0.8, a: 0.75}
+  flareColorB: {r: 0.4, g: 0.8, b: 0.8, a: 0.75}
+  flareColorC: {r: 0.8, g: 0.4, b: 0.8, a: 0.75}
+  flareColorD: {r: 0.8, g: 0.4, b: 0, a: 0.75}
+  lensFlareVignetteMask: {fileID: 2800000, guid: 95ef4804fe0be4c999ddaa383536cde8,
+    type: 3}
+  lensFlareShader: {fileID: 4800000, guid: 459fe69d2f6d74ddb92f04dbf45a866b, type: 3}
+  screenBlendShader: {fileID: 4800000, guid: 7856cbff0a0ca45c787d5431eb805bb0, type: 3}
+  blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
+  brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
+    type: 3}
+--- !u!1 &1193404201
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1725524343}
-  - 114: {fileID: 1725524342}
+  - 4: {fileID: 1193404203}
+  - 114: {fileID: 1193404202}
   m_Layer: 0
   m_Name: UniverseGenerator
   m_TagString: Untagged
@@ -261,12 +300,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1725524342
+--- !u!114 &1193404202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1725524341}
+  m_GameObject: {fileID: 1193404201}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5d74b885b53692448937735744cbfac, type: 3}
@@ -287,11 +326,14 @@ MonoBehaviour:
     RadiusMin: 100
     RadiusMax: 100
     Model: {fileID: 100000, guid: 1347d59e5b880854a8759f0aa32feb36, type: 3}
+    LookAtCenter: 1
     Textures:
     - {fileID: 2800000, guid: 8b6c9ae111b236042b383deff0fafdad, type: 3}
     Colors:
     - Color1: {r: 1, g: 1, b: 1, a: 1}
       Color2: {r: 1, g: 1, b: 1, a: 1}
+    UseMaterials: 0
+    Materials: []
   - CountMin: 100
     CountMax: 100
     ScaleMin: 100
@@ -299,21 +341,45 @@ MonoBehaviour:
     RadiusMin: 0
     RadiusMax: 0
     Model: {fileID: 100000, guid: 668f047774d7eb7439388c5a79baf76c, type: 3}
+    LookAtCenter: 0
     Textures:
     - {fileID: 2800000, guid: 680a9c825dc06124aa6ea647b56a5172, type: 3}
     - {fileID: 2800000, guid: 99fec2d3f0ab4c2489d0a3f951543552, type: 3}
     - {fileID: 2800000, guid: 2cb7c5c4471ef00438887520dc121837, type: 3}
     Colors:
-    - Color1: {r: 0.565941, g: 0.26173225, b: 0.75735295, a: 0.403}
-      Color2: {r: 0.1518166, g: 0.315714, b: 0.7941176, a: 0.391}
---- !u!4 &1725524343
+    - Color1: {r: 0.565941, g: 0.26173225, b: 0.75735295, a: 0.078431375}
+      Color2: {r: 0.1518166, g: 0.315714, b: 0.7941176, a: 0.078431375}
+    UseMaterials: 0
+    Materials: []
+  - CountMin: 3
+    CountMax: 5
+    ScaleMin: 1
+    ScaleMax: 20
+    RadiusMin: 90
+    RadiusMax: 90
+    Model: {fileID: 100000, guid: 5925ccfe3cdd654458b6ade3d6ec06e3, type: 3}
+    LookAtCenter: 0
+    Textures: []
+    Colors:
+    - Color1: {r: 1, g: 1, b: 1, a: 1}
+      Color2: {r: 1, g: 1, b: 1, a: 1}
+    UseMaterials: 1
+    Materials:
+    - {fileID: 2100000, guid: 0ab6c7c23747eb245a850586e0b6a8ab, type: 2}
+    - {fileID: 2100000, guid: 511b667696cdecb4395afc9dab99145a, type: 2}
+    - {fileID: 2100000, guid: 9510db6176842934f9dd560d8e4f3d37, type: 2}
+    - {fileID: 2100000, guid: a427db15690dccb429c84647cfae8b11, type: 2}
+    - {fileID: 2100000, guid: f19b5673696d8474aa3ecf3fe607f94b, type: 2}
+    - {fileID: 2100000, guid: 10ae8257daec1bf41a491443b1c63dda, type: 2}
+    - {fileID: 2100000, guid: 5a17d0e80ed6dc44d896d19c1a5cb1de, type: 2}
+--- !u!4 &1193404203
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1725524341}
+  m_GameObject: {fileID: 1193404201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.1999364, y: 1.8786054, z: 1.8011665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

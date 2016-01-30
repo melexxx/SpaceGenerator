@@ -8,7 +8,7 @@ public class UniverseGeneratorEditor : Editor
 {
 	void OnEnable()
 	{
-		//hideFlags = HideFlags.HideAndDontSave;
+		hideFlags = HideFlags.HideAndDontSave;
 		Debug.Log("On Enabled!");
 	}
 
@@ -51,30 +51,41 @@ public class UniverseGeneratorEditor : Editor
 					so.ScaleMin = scale.Min;
 					so.ScaleMax = scale.Max;
 
-					// Textures
-					so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
+					so.LookAtCenter = GUILayout.Toggle(so.LookAtCenter, "Look at Centre");
+					
+					// Materials
+					so.UseMaterials = GUILayout.Toggle(so.UseMaterials, "Use materials");
+					if (so.UseMaterials)
+					{
+						so.Materials = EditorExtensions.GameObjectList<Material>("Materials", so.Materials, false);
+					}
+					else
+					{
+						// Textures
+						so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
 
-					// Colours
-					if (so.Colors == null)
-					{
-						so.Colors = new List<ColorRange>();
-					}
-					for (var j = 0; j < so.Colors.Count; j++)
-					{
-						var clr = so.Colors[j];
-						EditorGUILayout.BeginHorizontal();
-						EditorGUILayout.PrefixLabel("Color");
-						clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
-						clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
-						if (GUILayout.Button("X"))
+						// Colours
+						if (so.Colors == null)
 						{
-							so.Colors.RemoveAt(j);
+							so.Colors = new List<ColorRange>();
 						}
-						EditorGUILayout.EndHorizontal();
-					}
-					if (GUILayout.Button("Add Color"))
-					{
-						so.Colors.Add(new ColorRange());
+						for (var j = 0; j < so.Colors.Count; j++)
+						{
+							var clr = so.Colors[j];
+							EditorGUILayout.BeginHorizontal();
+							EditorGUILayout.PrefixLabel("Color");
+							clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
+							clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
+							if (GUILayout.Button("X"))
+							{
+								so.Colors.RemoveAt(j);
+							}
+							EditorGUILayout.EndHorizontal();
+						}
+						if (GUILayout.Button("Add Color"))
+						{
+							so.Colors.Add(new ColorRange());
+						}
 					}
 				}
 				if (GUILayout.Button("Remove"))

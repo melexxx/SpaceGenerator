@@ -101,18 +101,32 @@ public class UniverseGenerator : MonoBehaviour
 			}
 			else {
 				model.transform.position = Random.onUnitSphere * Random.Range(settings.RadiusMin, settings.RadiusMax);
-				model.transform.LookAt(Vector3.zero);
-				model.transform.rotation *= Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.forward);
+
+				if (settings.LookAtCenter)
+				{
+					model.transform.LookAt(Vector3.zero);
+					model.transform.rotation *= Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.forward);
+				}
+				else
+				{
+					model.transform.rotation = Random.rotation;
+				}
 			}
 
 			model.transform.localScale = Vector3.one * Random.Range(settings.ScaleMin, settings.ScaleMax);
 			model.transform.SetParent(_parent);
 
-			if (settings.Textures != null && settings.Textures.Any())
+			if (settings.UseMaterials)
 			{
-				var tex = settings.Textures[Random.Range(0, settings.Textures.Count)];
-				var colr = settings.Colors[Random.Range(0, settings.Colors.Count)].GetRandom();
-				model.GetComponent<Renderer>().material = CreateMaterial(tex, colr);
+				model.GetComponent<Renderer>().material = settings.Materials[Random.Range(0, settings.Materials.Count)];
+			}
+			else {
+				if (settings.Textures != null && settings.Textures.Any())
+				{
+					var tex = settings.Textures[Random.Range(0, settings.Textures.Count)];
+					var colr = settings.Colors[Random.Range(0, settings.Colors.Count)].GetRandom();
+					model.GetComponent<Renderer>().material = CreateMaterial(tex, colr);
+				}
 			}
 		}
 	}
@@ -143,9 +157,15 @@ public class ScatterParams
 
 	public GameObject Model;
 
+	public bool LookAtCenter;
+
 	public List<Texture> Textures;
 
 	public List<ColorRange> Colors;
+
+	public bool UseMaterials;
+
+	public List<Material> Materials;
 
 	public ScatterParams()
 	{
