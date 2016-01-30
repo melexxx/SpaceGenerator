@@ -19,8 +19,8 @@ public class UniverseGeneratorEditor : Editor
 		if (universeGen != null)
 		{
 			universeGen.CubemapShader = EditorExtensions.ObjectField<Shader>("Background Shader", universeGen.CubemapShader, false);
-
 			universeGen.BaseShader = EditorExtensions.ObjectField<Shader>("Base Shader", universeGen.BaseShader, false);
+
 			universeGen.CameraObj = EditorExtensions.ObjectField<Camera>("Camera", universeGen.CameraObj, true);
 			universeGen.BackgroundColor = EditorGUILayout.ColorField("Background Color", universeGen.BackgroundColor);
 

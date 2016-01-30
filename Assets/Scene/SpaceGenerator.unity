@@ -145,7 +145,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &264934641
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,15 +245,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnSpeed: 45
---- !u!1 &1986091154
+--- !u!1 &1725524341
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1986091156}
-  - 114: {fileID: 1986091155}
+  - 4: {fileID: 1725524343}
+  - 114: {fileID: 1725524342}
   m_Layer: 0
   m_Name: UniverseGenerator
   m_TagString: Untagged
@@ -261,27 +261,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1986091155
+--- !u!114 &1725524342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1986091154}
+  m_GameObject: {fileID: 1725524341}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5d74b885b53692448937735744cbfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlatResolution: 1024
+  FlatResolution: 2048
   CameraObj: {fileID: 264934645}
   BaseShader: {fileID: 4800000, guid: 6cbf5b7ba0ff20940bf3555ddd63663c, type: 3}
   CubemapShader: {fileID: 103, guid: 0000000000000000f000000000000000, type: 0}
-  Quad: {fileID: 102406, guid: cb7292e84a9b74546a40160af9100b96, type: 2}
-  WrapSphere: {fileID: 100000, guid: 668f047774d7eb7439388c5a79baf76c, type: 3}
-  BackgroundColor: {r: 0.019517738, g: 0.080026284, b: 0.1397059, a: 1}
+  Quad: {fileID: 0}
+  WrapSphere: {fileID: 0}
+  BackgroundColor: {r: 0.08761032, g: 0.05625, b: 0.153, a: 1}
   ScatterObjects:
   - CountMin: 100
-    CountMax: 300
+    CountMax: 100
     ScaleMin: 100
     ScaleMax: 100
     RadiusMin: 100
@@ -292,8 +292,8 @@ MonoBehaviour:
     Colors:
     - Color1: {r: 1, g: 1, b: 1, a: 1}
       Color2: {r: 1, g: 1, b: 1, a: 1}
-  - CountMin: 20
-    CountMax: 50
+  - CountMin: 100
+    CountMax: 100
     ScaleMin: 100
     ScaleMax: 100
     RadiusMin: 0
@@ -301,18 +301,20 @@ MonoBehaviour:
     Model: {fileID: 100000, guid: 668f047774d7eb7439388c5a79baf76c, type: 3}
     Textures:
     - {fileID: 2800000, guid: 680a9c825dc06124aa6ea647b56a5172, type: 3}
+    - {fileID: 2800000, guid: 99fec2d3f0ab4c2489d0a3f951543552, type: 3}
+    - {fileID: 2800000, guid: 2cb7c5c4471ef00438887520dc121837, type: 3}
     Colors:
-    - Color1: {r: 1, g: 1, b: 1, a: 1}
-      Color2: {r: 1, g: 1, b: 1, a: 1}
---- !u!4 &1986091156
+    - Color1: {r: 0.565941, g: 0.26173225, b: 0.75735295, a: 0.403}
+      Color2: {r: 0.1518166, g: 0.315714, b: 0.7941176, a: 0.391}
+--- !u!4 &1725524343
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1986091154}
+  m_GameObject: {fileID: 1725524341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2

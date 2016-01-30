@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,6 +21,14 @@ public class UniverseGenerator : MonoBehaviour
 	public Color BackgroundColor = Color.black;
 
 	public List<ScatterParams> ScatterObjects;
+
+	public UniverseGenerator()
+	{
+		if (ScatterObjects == null)
+		{
+			ScatterObjects = new List<ScatterParams>();
+		}
+	}
 
 	void Start()
 	{
@@ -99,9 +108,12 @@ public class UniverseGenerator : MonoBehaviour
 			model.transform.localScale = Vector3.one * Random.Range(settings.ScaleMin, settings.ScaleMax);
 			model.transform.SetParent(_parent);
 
-			var tex = settings.Textures[Random.Range(0, settings.Textures.Count)];
-			var colr = settings.Colors[Random.Range(0, settings.Colors.Count)].GetRandom();
-			model.GetComponent<Renderer>().material = CreateMaterial(tex, colr);
+			if (settings.Textures != null && settings.Textures.Any())
+			{
+				var tex = settings.Textures[Random.Range(0, settings.Textures.Count)];
+				var colr = settings.Colors[Random.Range(0, settings.Colors.Count)].GetRandom();
+				model.GetComponent<Renderer>().material = CreateMaterial(tex, colr);
+			}
 		}
 	}
 
