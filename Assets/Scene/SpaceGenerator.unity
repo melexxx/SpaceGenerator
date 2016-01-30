@@ -334,7 +334,7 @@ MonoBehaviour:
       Color2: {r: 1, g: 1, b: 1, a: 1}
     UseMaterials: 0
     Materials: []
-  - CountMin: 100
+  - CountMin: 50
     CountMax: 100
     ScaleMin: 100
     ScaleMax: 100
@@ -343,7 +343,7 @@ MonoBehaviour:
     Model: {fileID: 100000, guid: 668f047774d7eb7439388c5a79baf76c, type: 3}
     LookAtCenter: 0
     Textures:
-    - {fileID: 2800000, guid: 99fec2d3f0ab4c2489d0a3f951543552, type: 3}
+    - {fileID: 2800000, guid: b37ce1e889f389f4ca60a9bc91a66ce7, type: 3}
     Colors:
     - Color1: {r: 0.46485823, g: 0, b: 0.75735295, a: 0.019607844}
       Color2: {r: 0.093103446, g: 0, b: 0.7941176, a: 0.019607844}
@@ -352,8 +352,8 @@ MonoBehaviour:
   - CountMin: 3
     CountMax: 5
     ScaleMin: 1
-    ScaleMax: 20
-    RadiusMin: 90
+    ScaleMax: 10
+    RadiusMin: 60
     RadiusMax: 90
     Model: {fileID: 100000, guid: 5925ccfe3cdd654458b6ade3d6ec06e3, type: 3}
     LookAtCenter: 0
@@ -370,6 +370,21 @@ MonoBehaviour:
     - {fileID: 2100000, guid: f19b5673696d8474aa3ecf3fe607f94b, type: 2}
     - {fileID: 2100000, guid: 10ae8257daec1bf41a491443b1c63dda, type: 2}
     - {fileID: 2100000, guid: 5a17d0e80ed6dc44d896d19c1a5cb1de, type: 2}
+  - CountMin: 1
+    CountMax: 1
+    ScaleMin: 120
+    ScaleMax: 120
+    RadiusMin: 0
+    RadiusMax: 0
+    Model: {fileID: 100000, guid: 3730d4ff8f4c7bd45a95ddc5558a2725, type: 3}
+    LookAtCenter: 0
+    Textures:
+    - {fileID: 2800000, guid: c12df6135d07a104e861cf881dfdc0d2, type: 3}
+    Colors:
+    - Color1: {r: 0.4627451, g: 0, b: 0.75686276, a: 0.039215688}
+      Color2: {r: 0.093103446, g: 0, b: 0.7941176, a: 0.078431375}
+    UseMaterials: 0
+    Materials: []
 --- !u!4 &1193404203
 Transform:
   m_ObjectHideFlags: 0
