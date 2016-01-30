@@ -8,8 +8,7 @@ public class UniverseGenerator : MonoBehaviour
 	private GameObject _universeObj;
 	private Transform _parent;
 
-	//public int FlatResolution = 2048;
-	public int FlatResolution = 1024;
+	public int FlatResolution = 2048;
 
 	public Camera CameraObj;
 	public Shader BaseShader;
@@ -41,6 +40,9 @@ public class UniverseGenerator : MonoBehaviour
 
 	public void Generate()
 	{
+		// VERY IMPORTANT - must set clear to color before creating universe, then set to skybox after clearing
+		CameraObj.clearFlags = CameraClearFlags.Color;
+
 		Destroy(_universeObj);
 		_universeObj = new GameObject("UniverseObject");
 		_parent = _universeObj.transform;

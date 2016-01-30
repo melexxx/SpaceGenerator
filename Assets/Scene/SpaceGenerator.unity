@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 0
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -196,7 +196,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7030856caf01c45aa88815cb696574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TurnSpeed: 45
 --- !u!1 &1986091154
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,11 +272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d74b885b53692448937735744cbfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FlatResolution: 1024
   CameraObj: {fileID: 264934645}
   BaseShader: {fileID: 4800000, guid: 6cbf5b7ba0ff20940bf3555ddd63663c, type: 3}
+  CubemapShader: {fileID: 103, guid: 0000000000000000f000000000000000, type: 0}
   Quad: {fileID: 102406, guid: cb7292e84a9b74546a40160af9100b96, type: 2}
   WrapSphere: {fileID: 100000, guid: 668f047774d7eb7439388c5a79baf76c, type: 3}
-  BackgroundColor: {r: 0.038911767, g: 0.093328625, b: 0.147, a: 1}
+  BackgroundColor: {r: 0.019517738, g: 0.080026284, b: 0.1397059, a: 1}
   ScatterObjects:
   - CountMin: 100
     CountMax: 300
