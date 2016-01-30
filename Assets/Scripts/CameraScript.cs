@@ -2,18 +2,16 @@
 
 public class CameraScript : MonoBehaviour
 {
+    public float TurnSpeed = 45f;
     private float yawSpeed;
     private float pitchSpeed;
-    private Vector3 lastMousePos;
-
-	private void Start() { }
 
     private void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            yawSpeed = -45f*Input.GetAxis("Mouse X")*Time.deltaTime;
-            pitchSpeed = 45f*Input.GetAxis("Mouse Y")*Time.deltaTime;
+            yawSpeed = -TurnSpeed*Input.GetAxis("Mouse X")*Time.deltaTime;
+            pitchSpeed = TurnSpeed*Input.GetAxis("Mouse Y")*Time.deltaTime;
         }
         else
         {
