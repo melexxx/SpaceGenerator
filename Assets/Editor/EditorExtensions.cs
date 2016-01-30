@@ -85,7 +85,7 @@ public static class EditorExtensions
 [System.Serializable]
 public class EditorRange<T>
 {
-	public T Min { get; set; }
+	public T Min;
 
-	public T Max { get; set; }
+	public T Max;
 }

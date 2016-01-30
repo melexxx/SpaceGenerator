@@ -8,7 +8,7 @@ public class UniverseGeneratorEditor : Editor
 {
 	void OnEnable()
 	{
-		hideFlags = HideFlags.HideAndDontSave;
+		//hideFlags = HideFlags.HideAndDontSave;
 		Debug.Log("On Enabled!");
 	}
 
@@ -64,6 +64,10 @@ public class UniverseGeneratorEditor : Editor
 						EditorGUILayout.PrefixLabel("Color");
 						clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
 						clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
+						if (GUILayout.Button("X"))
+						{
+							so.Colors.RemoveAt(j);
+						}
 						EditorGUILayout.EndHorizontal();
 					}
 					if (GUILayout.Button("Add Color"))
@@ -71,21 +75,15 @@ public class UniverseGeneratorEditor : Editor
 						so.Colors.Add(new ColorRange());
 					}
 				}
-				else
-				{
-					EditorGUILayout.LabelField("- NULL -");
-				}
 				if (GUILayout.Button("Remove"))
 				{
 					universeGen.ScatterObjects.RemoveAt(i);
 				}
-				//so.Colors = new List<ColorRange> { new ColorRange() };
 			}
 
 			EditorGUILayout.Separator();
 			if (GUILayout.Button("Add Scatter Group"))
 			{
-				//universeGen.ScatterObjects.Add(null);
 				universeGen.ScatterObjects.Add(new ScatterParams());
 			}
 		}

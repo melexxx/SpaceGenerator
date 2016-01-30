@@ -108,7 +108,6 @@ public class ScatterParams
 
 	public ScatterParams()
 	{
-		Debug.Log("La la la!");
 		Colors = new List<ColorRange> { new ColorRange() };
 	}
 }
