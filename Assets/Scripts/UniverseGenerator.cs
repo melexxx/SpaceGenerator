@@ -24,6 +24,7 @@ public class UniverseGenerator : MonoBehaviour
 		{
 			ScatterObjects = new List<ScatterParams>();
 		}
+		Generate();
 	}
 
 	void Update()

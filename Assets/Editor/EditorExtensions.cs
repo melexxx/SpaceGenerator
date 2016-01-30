@@ -69,6 +69,17 @@ public static class EditorExtensions
 		EditorGUILayout.EndHorizontal();
 		return range;
 	}
+
+	public static EditorRange<Color> ColorRange(string label, Color min, Color max)
+	{
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.PrefixLabel(label);
+		var range = new EditorRange<Color>();
+		range.Min = EditorGUILayout.ColorField(min);
+		range.Max = EditorGUILayout.ColorField(max);
+		EditorGUILayout.EndHorizontal();
+		return range;
+	}
 }
 
 [System.Serializable]

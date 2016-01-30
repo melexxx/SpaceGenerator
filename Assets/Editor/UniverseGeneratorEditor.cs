@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -50,6 +51,25 @@ public class UniverseGeneratorEditor : Editor
 
 					// Textures
 					so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
+
+					// Colours
+					if (so.Colors == null)
+					{
+						so.Colors = new List<ColorRange>();
+					}
+					for (var j = 0; j < so.Colors.Count; j++)
+					{
+						var clr = so.Colors[j];
+						EditorGUILayout.BeginHorizontal();
+						EditorGUILayout.PrefixLabel("Color");
+						clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
+						clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
+						EditorGUILayout.EndHorizontal();
+					}
+					if (GUILayout.Button("Add Color"))
+					{
+						so.Colors.Add(new ColorRange());
+					}
 				}
 				else
 				{
@@ -61,6 +81,8 @@ public class UniverseGeneratorEditor : Editor
 				}
 				//so.Colors = new List<ColorRange> { new ColorRange() };
 			}
+
+			EditorGUILayout.Separator();
 			if (GUILayout.Button("Add Scatter Group"))
 			{
 				//universeGen.ScatterObjects.Add(null);
