@@ -25,15 +25,16 @@ public class UniverseGeneratorEditor : Editor
 			universeGen.BackgroundColor = EditorGUILayout.ColorField("Background Color", universeGen.BackgroundColor);
 
 			// Sun
+			EditorGUILayout.LabelField("Sun", EditorStyles.boldLabel);
 			universeGen.SunLight = EditorExtensions.ObjectField<Light>("Sun Light", universeGen.SunLight, true);
-			universeGen.SunTexture = EditorExtensions.ObjectField<Texture>("Sun Texture", universeGen.SunTexture, false);
 			universeGen.SunModel = EditorExtensions.ObjectField<GameObject>("Sun Model", universeGen.SunModel, false);
+			universeGen.SunTexture = EditorExtensions.ObjectField<Texture>("Sun Texture", universeGen.SunTexture, false);
 
 			EditorGUILayout.LabelField(string.Format("Scatter Groups ({0})", universeGen.ScatterObjects.Count), EditorStyles.boldLabel);
+			EditorGUILayout.Separator();
+
 			for (var i = 0; i < universeGen.ScatterObjects.Count; i++)
 			{
-				EditorGUILayout.LabelField("Scatter Group " + (i + 1));
-
 				var so = universeGen.ScatterObjects[i];
 				so = ScatterGUI(so);
 
@@ -53,63 +54,64 @@ public class UniverseGeneratorEditor : Editor
 
 	private ScatterSettings ScatterGUI(ScatterSettings so)
 	{
-		EditorGUILayout.LabelField("Scatter Group");
+		EditorGUILayout.BeginHorizontal();
+		so.IsActive = GUILayout.Toggle(so.IsActive, "", GUILayout.Width(10));
+		EditorGUILayout.LabelField(so.Name, EditorStyles.boldLabel);
+		EditorGUILayout.EndHorizontal();
 
-		if (so != null)
+		so.Name = EditorGUILayout.TextField("Name", so.Name);
+		
+		so.Model = EditorExtensions.ObjectField<GameObject>("Model", so.Model, false);
+
+		// Radius
+		var radius = EditorExtensions.FloatRange("Radius", so.RadiusMin, so.RadiusMax);
+		so.RadiusMin = radius.Min;
+		so.RadiusMax = radius.Max;
+
+		// Count
+		var count = EditorExtensions.IntRange("Count", so.CountMin, so.CountMax);
+		so.CountMin = count.Min;
+		so.CountMax = count.Max;
+
+		// Scale
+		var scale = EditorExtensions.FloatRange("Scale", so.ScaleMin, so.ScaleMax);
+		so.ScaleMin = scale.Min;
+		so.ScaleMax = scale.Max;
+
+		so.LookAtCenter = GUILayout.Toggle(so.LookAtCenter, "Look at Centre");
+
+		// Materials
+		so.UseMaterials = GUILayout.Toggle(so.UseMaterials, "Use materials");
+		if (so.UseMaterials)
 		{
-			so.IsActive = GUILayout.Toggle(so.IsActive, "Is Active");
-			so.Model = EditorExtensions.ObjectField<GameObject>("Model", so.Model, false);
+			so.Materials = EditorExtensions.GameObjectList<Material>("Materials", so.Materials, false);
+		}
+		else
+		{
+			// Textures
+			so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
 
-			// Radius
-			var radius = EditorExtensions.FloatRange("Radius", so.RadiusMin, so.RadiusMax);
-			so.RadiusMin = radius.Min;
-			so.RadiusMax = radius.Max;
-
-			// Count
-			var count = EditorExtensions.IntRange("Count", so.CountMin, so.CountMax);
-			so.CountMin = count.Min;
-			so.CountMax = count.Max;
-
-			// Scale
-			var scale = EditorExtensions.FloatRange("Scale", so.ScaleMin, so.ScaleMax);
-			so.ScaleMin = scale.Min;
-			so.ScaleMax = scale.Max;
-
-			so.LookAtCenter = GUILayout.Toggle(so.LookAtCenter, "Look at Centre");
-
-			// Materials
-			so.UseMaterials = GUILayout.Toggle(so.UseMaterials, "Use materials");
-			if (so.UseMaterials)
+			// Colours
+			if (so.Colors == null)
 			{
-				so.Materials = EditorExtensions.GameObjectList<Material>("Materials", so.Materials, false);
+				so.Colors = new List<ColorRange>();
 			}
-			else
+			for (var j = 0; j < so.Colors.Count; j++)
 			{
-				// Textures
-				so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
-
-				// Colours
-				if (so.Colors == null)
+				var clr = so.Colors[j];
+				EditorGUILayout.BeginHorizontal();
+				EditorGUILayout.PrefixLabel("Color");
+				clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
+				clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
+				if (GUILayout.Button("X"))
 				{
-					so.Colors = new List<ColorRange>();
+					so.Colors.RemoveAt(j);
 				}
-				for (var j = 0; j < so.Colors.Count; j++)
-				{
-					var clr = so.Colors[j];
-					EditorGUILayout.BeginHorizontal();
-					EditorGUILayout.PrefixLabel("Color");
-					clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
-					clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
-					if (GUILayout.Button("X"))
-					{
-						so.Colors.RemoveAt(j);
-					}
-					EditorGUILayout.EndHorizontal();
-				}
-				if (GUILayout.Button("Add Color"))
-				{
-					so.Colors.Add(new ColorRange());
-				}
+				EditorGUILayout.EndHorizontal();
+			}
+			if (GUILayout.Button("Add Color"))
+			{
+				so.Colors.Add(new ColorRange());
 			}
 		}
 

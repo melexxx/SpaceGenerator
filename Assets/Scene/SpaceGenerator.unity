@@ -331,7 +331,8 @@ MonoBehaviour:
   CubemapShader: {fileID: 103, guid: 0000000000000000f000000000000000, type: 0}
   BackgroundColor: {r: 0.07918354, g: 0.028006, b: 0.20899999, a: 1}
   ScatterObjects:
-  - IsActive: 1
+  - Name: Stars
+    IsActive: 1
     CountMin: 100
     CountMax: 100
     ScaleMin: 100
@@ -347,7 +348,8 @@ MonoBehaviour:
       Color2: {r: 1, g: 1, b: 1, a: 1}
     UseMaterials: 0
     Materials: []
-  - IsActive: 1
+  - Name: Nebula
+    IsActive: 1
     CountMin: 15
     CountMax: 30
     ScaleMin: 100
@@ -365,7 +367,8 @@ MonoBehaviour:
       Color2: {r: 0.35020587, g: 0.4451111, b: 0.7941176, a: 0.019607844}
     UseMaterials: 0
     Materials: []
-  - IsActive: 1
+  - Name: Planets
+    IsActive: 1
     CountMin: 3
     CountMax: 5
     ScaleMin: 1
@@ -387,7 +390,8 @@ MonoBehaviour:
     - {fileID: 2100000, guid: f19b5673696d8474aa3ecf3fe607f94b, type: 2}
     - {fileID: 2100000, guid: 10ae8257daec1bf41a491443b1c63dda, type: 2}
     - {fileID: 2100000, guid: 5a17d0e80ed6dc44d896d19c1a5cb1de, type: 2}
-  - IsActive: 1
+  - Name: Ring
+    IsActive: 1
     CountMin: 1
     CountMax: 1
     ScaleMin: 120
@@ -403,7 +407,8 @@ MonoBehaviour:
       Color2: {r: 0.4542353, g: 0.5128357, b: 0.7941176, a: 0.078431375}
     UseMaterials: 0
     Materials: []
-  - IsActive: 1
+  - Name: Clouds
+    IsActive: 1
     CountMin: 100
     CountMax: 200
     ScaleMin: 200

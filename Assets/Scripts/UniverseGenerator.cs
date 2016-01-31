@@ -197,6 +197,8 @@ public class UniverseGenerator : MonoBehaviour
 [System.Serializable]
 public class ScatterSettings
 {
+	public string Name;
+
 	public bool IsActive;
 
 	public int CountMin;
