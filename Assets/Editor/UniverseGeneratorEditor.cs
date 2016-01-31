@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,9 +18,16 @@ public class UniverseGeneratorEditor : Editor
 
 		if (universeGen != null)
 		{
+			universeGen.FlatResolution = EditorExtensions.IntDropdown("Resolution", new List<int> { 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192 }, universeGen.FlatResolution);
+
 			universeGen.CubemapShader = EditorExtensions.ObjectField<Shader>("Background Shader", universeGen.CubemapShader, false);
 			universeGen.BaseShader = EditorExtensions.ObjectField<Shader>("Base Shader", universeGen.BaseShader, false);
 			universeGen.BackgroundColor = EditorGUILayout.ColorField("Background Color", universeGen.BackgroundColor);
+
+			// Sun
+			universeGen.SunLight = EditorExtensions.ObjectField<Light>("Sun Light", universeGen.SunLight, true);
+			universeGen.SunTexture = EditorExtensions.ObjectField<Texture>("Sun Texture", universeGen.SunTexture, false);
+			universeGen.SunModel = EditorExtensions.ObjectField<GameObject>("Sun Model", universeGen.SunModel, false);
 
 			EditorGUILayout.LabelField(string.Format("Scatter Groups ({0})", universeGen.ScatterObjects.Count), EditorStyles.boldLabel);
 			for (var i = 0; i < universeGen.ScatterObjects.Count; i++)
@@ -27,63 +35,8 @@ public class UniverseGeneratorEditor : Editor
 				EditorGUILayout.LabelField("Scatter Group " + (i + 1));
 
 				var so = universeGen.ScatterObjects[i];
+				so = ScatterGUI(so);
 
-				if (so != null)
-				{
-					so.Model = EditorExtensions.ObjectField<GameObject>("Model", so.Model, false);
-
-					// Radius
-					var radius = EditorExtensions.FloatRange("Radius", so.RadiusMin, so.RadiusMax);
-					so.RadiusMin = radius.Min;
-					so.RadiusMax = radius.Max;
-
-					// Count
-					var count = EditorExtensions.IntRange("Count", so.CountMin, so.CountMax);
-					so.CountMin = count.Min;
-					so.CountMax = count.Max;
-
-					// Scale
-					var scale = EditorExtensions.FloatRange("Scale", so.ScaleMin, so.ScaleMax);
-					so.ScaleMin = scale.Min;
-					so.ScaleMax = scale.Max;
-
-					so.LookAtCenter = GUILayout.Toggle(so.LookAtCenter, "Look at Centre");
-
-					// Materials
-					so.UseMaterials = GUILayout.Toggle(so.UseMaterials, "Use materials");
-					if (so.UseMaterials)
-					{
-						so.Materials = EditorExtensions.GameObjectList<Material>("Materials", so.Materials, false);
-					}
-					else
-					{
-						// Textures
-						so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
-
-						// Colours
-						if (so.Colors == null)
-						{
-							so.Colors = new List<ColorRange>();
-						}
-						for (var j = 0; j < so.Colors.Count; j++)
-						{
-							var clr = so.Colors[j];
-							EditorGUILayout.BeginHorizontal();
-							EditorGUILayout.PrefixLabel("Color");
-							clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
-							clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
-							if (GUILayout.Button("X"))
-							{
-								so.Colors.RemoveAt(j);
-							}
-							EditorGUILayout.EndHorizontal();
-						}
-						if (GUILayout.Button("Add Color"))
-						{
-							so.Colors.Add(new ColorRange());
-						}
-					}
-				}
 				if (GUILayout.Button("Remove"))
 				{
 					universeGen.ScatterObjects.RemoveAt(i);
@@ -96,5 +49,70 @@ public class UniverseGeneratorEditor : Editor
 				universeGen.ScatterObjects.Add(new ScatterSettings());
 			}
 		}
+	}
+
+	private ScatterSettings ScatterGUI(ScatterSettings so)
+	{
+		EditorGUILayout.LabelField("Scatter Group");
+
+		if (so != null)
+		{
+			so.IsActive = GUILayout.Toggle(so.IsActive, "Is Active");
+			so.Model = EditorExtensions.ObjectField<GameObject>("Model", so.Model, false);
+
+			// Radius
+			var radius = EditorExtensions.FloatRange("Radius", so.RadiusMin, so.RadiusMax);
+			so.RadiusMin = radius.Min;
+			so.RadiusMax = radius.Max;
+
+			// Count
+			var count = EditorExtensions.IntRange("Count", so.CountMin, so.CountMax);
+			so.CountMin = count.Min;
+			so.CountMax = count.Max;
+
+			// Scale
+			var scale = EditorExtensions.FloatRange("Scale", so.ScaleMin, so.ScaleMax);
+			so.ScaleMin = scale.Min;
+			so.ScaleMax = scale.Max;
+
+			so.LookAtCenter = GUILayout.Toggle(so.LookAtCenter, "Look at Centre");
+
+			// Materials
+			so.UseMaterials = GUILayout.Toggle(so.UseMaterials, "Use materials");
+			if (so.UseMaterials)
+			{
+				so.Materials = EditorExtensions.GameObjectList<Material>("Materials", so.Materials, false);
+			}
+			else
+			{
+				// Textures
+				so.Textures = EditorExtensions.GameObjectList<Texture>("Textures", so.Textures, false);
+
+				// Colours
+				if (so.Colors == null)
+				{
+					so.Colors = new List<ColorRange>();
+				}
+				for (var j = 0; j < so.Colors.Count; j++)
+				{
+					var clr = so.Colors[j];
+					EditorGUILayout.BeginHorizontal();
+					EditorGUILayout.PrefixLabel("Color");
+					clr.Color1 = EditorGUILayout.ColorField(clr.Color1);
+					clr.Color2 = EditorGUILayout.ColorField(clr.Color2);
+					if (GUILayout.Button("X"))
+					{
+						so.Colors.RemoveAt(j);
+					}
+					EditorGUILayout.EndHorizontal();
+				}
+				if (GUILayout.Button("Add Color"))
+				{
+					so.Colors.Add(new ColorRange());
+				}
+			}
+		}
+
+		return so;
 	}
 }

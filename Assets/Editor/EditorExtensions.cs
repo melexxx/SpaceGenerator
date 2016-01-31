@@ -80,6 +80,11 @@ public static class EditorExtensions
 		EditorGUILayout.EndHorizontal();
 		return range;
 	}
+
+	public static int IntDropdown(string label, List<int> valList, int value)
+	{
+		return valList[EditorGUILayout.Popup(label, valList.IndexOf(value), valList.Select(v => v.ToString()).ToArray())];
+	}
 }
 
 [System.Serializable]

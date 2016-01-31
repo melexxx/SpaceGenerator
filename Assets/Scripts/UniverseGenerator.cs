@@ -23,13 +23,16 @@ public class UniverseGenerator : MonoBehaviour
 
 	public Shader CubemapShader;
 
-	public GameObject Quad;
-
-	public GameObject WrapSphere;
-
 	public Color BackgroundColor = Color.black;
 
 	public List<ScatterSettings> ScatterObjects;
+
+	// Sun
+	public Light SunLight;
+
+	public Texture SunTexture;
+
+	public GameObject SunModel;
 
 	#endregion
 
@@ -65,18 +68,36 @@ public class UniverseGenerator : MonoBehaviour
 		Destroy(_universeObj);
 		_universeObj = new GameObject("UniverseObject");
 		_parent = _universeObj.transform;
-		
+
+		// Construct Camera
 		var camObj = new GameObject("BackgroundCamera");
+		camObj.transform.parent = _parent;
 		_renderCamera = camObj.AddComponent<Camera>();
 		// VERY IMPORTANT - must set clear to color before creating universe, then set to skybox after clearing
 		_renderCamera.clearFlags = CameraClearFlags.Color;
-		camObj.transform.parent = _parent;
-		
+		_renderCamera.renderingPath = RenderingPath.DeferredShading;
+		_renderCamera.hdr = true;
+		_renderCamera.farClipPlane = 20000;
+
+
 		_renderCamera.backgroundColor = BackgroundColor;
 
+		// Sun
+		var sunObj = Instantiate<GameObject>(SunModel);
+		sunObj.transform.SetParent(_parent);
+		sunObj.transform.position = Random.onUnitSphere * 10000;
+		sunObj.transform.localScale = Vector3.one * 2000;
+		sunObj.GetComponent<Renderer>().material = CreateMaterial(SunTexture, Color.white);
+		sunObj.transform.rotation = LookAtWithRandomTwist(sunObj.transform.position, Vector3.zero);
+		SunLight.transform.position = sunObj.transform.position;
+		SunLight.transform.forward = Vector3.zero - sunObj.transform.localPosition;
+		
 		foreach (var sg in ScatterObjects)
 		{
-			Scatter(sg);
+			if (sg.IsActive)
+			{
+				Scatter(sg);
+			}
 		}
 
 		Flatten();
@@ -125,8 +146,7 @@ public class UniverseGenerator : MonoBehaviour
 
 				if (settings.LookAtCenter)
 				{
-					model.transform.LookAt(Vector3.zero);
-					model.transform.rotation *= Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.forward);
+					model.transform.rotation = LookAtWithRandomTwist(model.transform.position, Vector3.zero);
 				}
 				else
 				{
@@ -152,6 +172,17 @@ public class UniverseGenerator : MonoBehaviour
 		}
 	}
 
+	private Quaternion LookAtWithRandomTwist(Vector3 positon, Vector3 target)
+	{
+		var relativeForward = target - positon;
+		var lookat = Quaternion.LookRotation(relativeForward);
+
+		// This isn't right yet
+		//lookat = Quaternion.AngleAxis(Random.Range(0f, 360f), forwardS);
+
+		return lookat;
+	}
+
 	private Material CreateMaterial(Texture tex, Color color)
 	{
 		var mat = new Material(BaseShader);
@@ -166,6 +197,8 @@ public class UniverseGenerator : MonoBehaviour
 [System.Serializable]
 public class ScatterSettings
 {
+	public bool IsActive;
+
 	public int CountMin;
 
 	public int CountMax;
@@ -192,6 +225,7 @@ public class ScatterSettings
 
 	public ScatterSettings()
 	{
+		IsActive = true;
 		Colors = new List<ColorRange> { new ColorRange() };
 	}
 }
