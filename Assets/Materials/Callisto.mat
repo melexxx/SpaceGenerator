@@ -175,7 +175,7 @@ Material:
       data:
         first:
           name: _EnvironmentColor
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: 0.16768992, g: 0, b: 0.409, a: 0}
       data:
         first:
           name: _RimColor

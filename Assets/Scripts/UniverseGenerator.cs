@@ -1,32 +1,43 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
 public class UniverseGenerator : MonoBehaviour
 {
+	#region Private Members
+
 	private GameObject _universeObj;
+
 	private Transform _parent;
+
+	private Camera _renderCamera;
+
+	#endregion
+
+	#region Public Variables
 
 	public int FlatResolution = 2048;
 
-	public Camera CameraObj;
 	public Shader BaseShader;
+
 	public Shader CubemapShader;
 
 	public GameObject Quad;
+
 	public GameObject WrapSphere;
 
 	public Color BackgroundColor = Color.black;
 
-	public List<ScatterParams> ScatterObjects;
+	public List<ScatterSettings> ScatterObjects;
+
+	#endregion
 
 	public UniverseGenerator()
 	{
 		if (ScatterObjects == null)
 		{
-			ScatterObjects = new List<ScatterParams>();
+			ScatterObjects = new List<ScatterSettings>();
 		}
 	}
 
@@ -34,7 +45,7 @@ public class UniverseGenerator : MonoBehaviour
 	{
 		if (ScatterObjects == null)
 		{
-			ScatterObjects = new List<ScatterParams>();
+			ScatterObjects = new List<ScatterSettings>();
 		}
 		Generate();
 	}
@@ -47,16 +58,21 @@ public class UniverseGenerator : MonoBehaviour
 		}
 	}
 
+	#region Public Methods
+
 	public void Generate()
 	{
-		// VERY IMPORTANT - must set clear to color before creating universe, then set to skybox after clearing
-		CameraObj.clearFlags = CameraClearFlags.Color;
-
 		Destroy(_universeObj);
 		_universeObj = new GameObject("UniverseObject");
 		_parent = _universeObj.transform;
-
-		CameraObj.backgroundColor = BackgroundColor;
+		
+		var camObj = new GameObject("BackgroundCamera");
+		_renderCamera = camObj.AddComponent<Camera>();
+		// VERY IMPORTANT - must set clear to color before creating universe, then set to skybox after clearing
+		_renderCamera.clearFlags = CameraClearFlags.Color;
+		camObj.transform.parent = _parent;
+		
+		_renderCamera.backgroundColor = BackgroundColor;
 
 		foreach (var sg in ScatterObjects)
 		{
@@ -68,26 +84,31 @@ public class UniverseGenerator : MonoBehaviour
 
 	public void Flatten()
 	{
-		var renText = new RenderTexture(FlatResolution, FlatResolution, 24);
-		renText.wrapMode = TextureWrapMode.Repeat;
-		renText.antiAliasing = 2;
-		renText.anisoLevel = 9;
-		renText.filterMode = FilterMode.Trilinear;
-		renText.generateMips = false;
-		renText.isCubemap = true;
+		var renderTexture = new RenderTexture(FlatResolution, FlatResolution, 24);
+		renderTexture.wrapMode = TextureWrapMode.Repeat;
+		renderTexture.antiAliasing = 2;
+		renderTexture.anisoLevel = 9;
+		renderTexture.filterMode = FilterMode.Trilinear;
+		renderTexture.generateMips = false;
+		renderTexture.isCubemap = true;
 
-		var bgMat = new Material(CubemapShader);
-		bgMat.SetTexture("_Tex", renText);
+		var bgMaterial = new Material(CubemapShader);
+		bgMaterial.SetTexture("_Tex", renderTexture);
 		Destroy(_parent.gameObject);
 
-		RenderSettings.skybox = bgMat;
+		RenderSettings.skybox = bgMaterial;
 
-		CameraObj.RenderToCubemap(renText, 63);
+		_renderCamera.RenderToCubemap(renderTexture, 63);
 
-		CameraObj.clearFlags = CameraClearFlags.Skybox;
+		_renderCamera.clearFlags = CameraClearFlags.Skybox;
+		_renderCamera.enabled = false;
 	}
 
-	private void Scatter(ScatterParams settings)
+	#endregion
+
+	#region Private Methods
+
+	private void Scatter(ScatterSettings settings)
 	{
 		var count = Random.Range(settings.CountMin, settings.CountMax);
 		for (var i = 0; i < count; i++)
@@ -138,10 +159,12 @@ public class UniverseGenerator : MonoBehaviour
 		mat.SetColor("_Color", color);
 		return mat;
 	}
+
+	#endregion
 }
 
 [System.Serializable]
-public class ScatterParams
+public class ScatterSettings
 {
 	public int CountMin;
 
@@ -167,7 +190,7 @@ public class ScatterParams
 
 	public List<Material> Materials;
 
-	public ScatterParams()
+	public ScatterSettings()
 	{
 		Colors = new List<ColorRange> { new ColorRange() };
 	}

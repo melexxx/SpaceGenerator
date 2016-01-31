@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,11 +19,9 @@ public class UniverseGeneratorEditor : Editor
 		{
 			universeGen.CubemapShader = EditorExtensions.ObjectField<Shader>("Background Shader", universeGen.CubemapShader, false);
 			universeGen.BaseShader = EditorExtensions.ObjectField<Shader>("Base Shader", universeGen.BaseShader, false);
-
-			universeGen.CameraObj = EditorExtensions.ObjectField<Camera>("Camera", universeGen.CameraObj, true);
 			universeGen.BackgroundColor = EditorGUILayout.ColorField("Background Color", universeGen.BackgroundColor);
 
-			EditorGUILayout.LabelField("Scatter Groups", EditorStyles.boldLabel);
+			EditorGUILayout.LabelField(string.Format("Scatter Groups ({0})", universeGen.ScatterObjects.Count), EditorStyles.boldLabel);
 			for (var i = 0; i < universeGen.ScatterObjects.Count; i++)
 			{
 				EditorGUILayout.LabelField("Scatter Group " + (i + 1));
@@ -33,7 +30,6 @@ public class UniverseGeneratorEditor : Editor
 
 				if (so != null)
 				{
-					//so.CountMin = EditorGUILayout.IntField("ggg", so.CountMin);
 					so.Model = EditorExtensions.ObjectField<GameObject>("Model", so.Model, false);
 
 					// Radius
@@ -52,7 +48,7 @@ public class UniverseGeneratorEditor : Editor
 					so.ScaleMax = scale.Max;
 
 					so.LookAtCenter = GUILayout.Toggle(so.LookAtCenter, "Look at Centre");
-					
+
 					// Materials
 					so.UseMaterials = GUILayout.Toggle(so.UseMaterials, "Use materials");
 					if (so.UseMaterials)
@@ -97,7 +93,7 @@ public class UniverseGeneratorEditor : Editor
 			EditorGUILayout.Separator();
 			if (GUILayout.Button("Add Scatter Group"))
 			{
-				universeGen.ScatterObjects.Add(new ScatterParams());
+				universeGen.ScatterObjects.Add(new ScatterSettings());
 			}
 		}
 	}
