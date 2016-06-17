@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5a03fe4883496eb43a6d30b936f815fd, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -143,6 +143,7 @@ Transform:
   m_LocalRotation: {x: 0.40821794, y: -0.23456973, z: 0.109381676, w: 0.87542605}
   m_LocalPosition: {x: -1.1940899, y: 1.6278242, z: 1.9179811}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -232,6 +233,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -329,7 +331,7 @@ MonoBehaviour:
   FlatResolution: 2048
   BaseShader: {fileID: 4800000, guid: 6cbf5b7ba0ff20940bf3555ddd63663c, type: 3}
   CubemapShader: {fileID: 103, guid: 0000000000000000f000000000000000, type: 0}
-  BackgroundColor: {r: 0.07918354, g: 0.028006, b: 0.20899999, a: 1}
+  BackgroundColor: {r: 0.12240764, g: 0.06855883, b: 0.259, a: 1}
   ScatterObjects:
   - Name: Stars
     IsActive: 1
@@ -363,8 +365,8 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 99fec2d3f0ab4c2489d0a3f951543552, type: 3}
     - {fileID: 2800000, guid: 2cb7c5c4471ef00438887520dc121837, type: 3}
     Colors:
-    - Color1: {r: 0.653, g: 0.37351602, b: 0.5759009, a: 0.039215688}
-      Color2: {r: 0.35020587, g: 0.4451111, b: 0.7941176, a: 0.019607844}
+    - Color1: {r: 0.653, g: 0.37351602, b: 0.6221604, a: 0.5882353}
+      Color2: {r: 0.35020587, g: 0.4451111, b: 0.7941176, a: 0.5882353}
     UseMaterials: 0
     Materials: []
   - Name: Planets
@@ -403,8 +405,8 @@ MonoBehaviour:
     Textures:
     - {fileID: 2800000, guid: c12df6135d07a104e861cf881dfdc0d2, type: 3}
     Colors:
-    - Color1: {r: 0.59774536, g: 0.3474, b: 0.75686276, a: 0.039215688}
-      Color2: {r: 0.4542353, g: 0.5128357, b: 0.7941176, a: 0.078431375}
+    - Color1: {r: 0.8477686, g: 0.41911763, b: 1, a: 0.397}
+      Color2: {r: 0.33737025, g: 0.5440878, b: 0.88235295, a: 0.078431375}
     UseMaterials: 0
     Materials: []
   - Name: Clouds
@@ -436,6 +438,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.1999364, y: 1.8786054, z: 1.8011665}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2

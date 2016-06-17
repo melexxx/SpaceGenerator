@@ -50,6 +50,8 @@ public class UniverseGeneratorEditor : Editor
 				universeGen.ScatterObjects.Add(new ScatterSettings());
 			}
 		}
+
+		//EditorGUILayout.TextArea(JsonUtility.ToJson(universeGen), GUILayout.Height(100), GUILayout.MaxWidth(200));
 	}
 
 	private ScatterSettings ScatterGUI(ScatterSettings so)
@@ -60,7 +62,7 @@ public class UniverseGeneratorEditor : Editor
 		EditorGUILayout.EndHorizontal();
 
 		so.Name = EditorGUILayout.TextField("Name", so.Name);
-		
+
 		so.Model = EditorExtensions.ObjectField<GameObject>("Model", so.Model, false);
 
 		// Radius
